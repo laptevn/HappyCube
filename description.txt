@@ -1,0 +1,23 @@
+com.puzzle.core.PuzzleEngine is the main starting point of puzzle solving. That is the engine that solves the puzzle.
+
+com.puzzle.ConsoleApp is a test console app that solves hardcoded puzzle and prints a result to a file specified in arguments.
+That exists just to satisfy task requirements and do not have much sense. I would recommend to look at unit tests that are far more useful.
+
+com.puzzle.cube.PuzzleEngineTest contains acceptance tests that verify puzzle engine work.
+There are also unit tests that test all vital parts of the system.
+
+
+PuzzleEngine contains traversal of all possible combinations of puzzle pieces. Backtracking algorithm is used for this.
+It uses PuzzleStrategy that detect if 2 pieces match each other and if puzzle is completed.
+
+CubeStrategy is an implementation of PuzzleStrategy that contains a strategy specific for cube puzzle.
+We may add more puzzle types. The only thing we have to change is just to implement PuzzleStrategy interface for this and pass it to PuzzleEngine.
+CubeStrategy requires 2 entities - CubeStructureFactory and PiecesDesigner.
+CubeStructureFactory contains whole cube structure defined in a declarative way. This structure is used while calculating matches in CubeStrategy.
+That lets us change any interconnection just in definition (in CubeStructureFactory) and keep computation logic (in CubeStrategy) unchanged.
+PiecesDesigner converts internal puzzle structure into a printable format.
+
+com.puzzle.cube.CubePuzzleFactory creates instances of PuzzleEngine and PuzzleStrategy specific for cube puzzle. It can be replaced with Dependency Injection easily.
+
+
+This task was completed iteratively following TDD practice. Code design lets me construct the system by pieces easily without changing already completed classes.
